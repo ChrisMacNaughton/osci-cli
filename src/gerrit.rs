@@ -34,9 +34,23 @@ pub fn check_gerrit_review(review_id: usize, config: &Config) -> Result<(), Erro
     );
     let jenkins = jenkins(config)?;
     // test_charm_func_smoke
-    let a = jenkins.get_job("test_charm_func_smoke")?;
+    let a = match jenkins.get_job("test_charm_func_smoke") {
+        Ok(r) => r,
+        Err(e) => {
+            println!("Couldn't get results from OSCI, are you connected to the VPN?");
+            debug!("Error: {:?}", e);
+            return Ok(())
+        }
+    };
     // test_charm_func_full
-    let b = jenkins.get_job("test_charm_func_full")?;
+    let b = match jenkins.get_job("test_charm_func_full") {
+        Ok(r) => r,
+        Err(e) => {
+            println!("Couldn't get results from OSCI, are you connected to the VPN?");
+            debug!("Error: {:?}", e);
+            return Ok(())
+        }
+    };
 
     let build = match (filter_builds(&a, review_id), filter_builds(&b, review_id)) {
         (Some(a), Some(b)) =>  {
