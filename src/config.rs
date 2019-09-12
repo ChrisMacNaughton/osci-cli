@@ -8,8 +8,8 @@ use toml;
 
 #[derive(Debug, Deserialize)]
 pub struct Config {
-    #[serde(default = "default_jenkins")]
-    pub jenkins_url: String,
+    #[serde(default = "default_osci")]
+    pub osci_url: String,
     pub user: Option<String>,
     pub password: Option<String>,
 }
@@ -26,6 +26,6 @@ impl Config {
     }
 }
 
-fn default_jenkins() -> String {
-    "".to_string()
+fn default_osci() -> String {
+    "http://10.245.162.58:8080/".to_string()
 }

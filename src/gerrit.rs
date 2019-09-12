@@ -30,7 +30,7 @@ struct LastBuildOfJob {
 pub fn check_gerrit_review(review_id: usize, config: &Config) -> Result<(), Error> {
     debug!(
         "About to check the status of review {} at {}",
-        review_id, config.jenkins_url
+        review_id, config.osci_url
     );
     let jenkins = jenkins(config)?;
     // test_charm_func_smoke
