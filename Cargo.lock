@@ -513,7 +513,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 [[package]]
 name = "jenkins_api"
 version = "0.5.2"
-source = "git+https://github.com/ChrisMacNaughton/jenkins-api.rs?branch=feature/public-fields#42d4b00c81e62591b8bd391d440ab269d78b12ac"
+source = "git+https://github.com/ChrisMacNaughton/jenkins-api.rs?branch=feature/public-fields#0eda79cd6e67a73efa1e78f6ed28b1ffc8a3d639"
 dependencies = [
  "failure 0.1.5 (registry+https://github.com/rust-lang/crates.io-index)",
  "log 0.4.8 (registry+https://github.com/rust-lang/crates.io-index)",

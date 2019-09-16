@@ -54,7 +54,7 @@ pub fn check_gerrit_review(review_id: usize, config: &Config) -> Result<(), Erro
 
     let build = match (filter_builds(&a, review_id), filter_builds(&b, review_id)) {
         (Some(a), Some(b)) =>  {
-            if a.timestamp > b.timestamp {
+            if Some(a.timestamp) > Some(b.timestamp) {
                 a
             } else {
                 b
@@ -98,10 +98,16 @@ pub fn check_gerrit_review(review_id: usize, config: &Config) -> Result<(), Erro
 
 fn filter_builds(job: &jenkins_api::job::CommonJob, review_id: usize) -> Option<&jenkins_api::build::ShortBuild> {
     match job.builds.iter().filter(|build| {
-        match display_name_to_build_number(&build.display_name) {
-            Some(build_number) => build_number == review_id,
+        match build.display_name {
+            Some(ref name) => {
+                match display_name_to_build_number(name) {
+                    Some(build_number) => build_number == review_id,
+                    None => false
+                }
+            }
             None => false
         }
+
     }).next() {
         Some(build) => Some(build),
         None => {
